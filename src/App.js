@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Puff } from "react-loader-spinner";
+import ClipLoader from "react-spinners/ClipLoader";
 import HomePage from "./pages/home/HomePage";
 import Mac from "./pages/mac/Mac";
 import MacBuyPage from "./pages/Mbuy/MacBuyPage";
@@ -29,7 +29,7 @@ const App = () => {
       <div className="App">
         {loading && (
           <div className="loader-container">
-            <Puff color="#00BFFF" height={100} width={100} />
+            <ClipLoader color="#00BFFF" height={100} width={100} />
           </div>
         )}
         <Navbar />
