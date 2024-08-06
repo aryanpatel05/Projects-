@@ -9,18 +9,17 @@ import Footer from "./components/Footer";
 import "./App.css";
 
 const App = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const handleStopLoading = () => {
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000); // Adjust the timeout duration as needed
-    };
+    const handleStartLoading = () => setLoading(true);
+    const handleStopLoading = () => setLoading(false);
 
+    window.addEventListener("beforeunload", handleStartLoading);
     window.addEventListener("load", handleStopLoading);
 
     return () => {
+      window.removeEventListener("beforeunload", handleStartLoading);
       window.removeEventListener("load", handleStopLoading);
     };
   }, []);
@@ -28,23 +27,20 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-        {loading ? (
+        {loading && (
           <div className="loader-container">
             <Puff color="#00BFFF" height={100} width={100} />
           </div>
-        ) : (
-          <>
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/mac" element={<Mac />} />
-              <Route path="/MacBuyPage" element={<MacBuyPage />} />
-            </Routes>
-            <div className="Footer-div">
-              <Footer />
-            </div>
-          </>
         )}
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/mac" element={<Mac />} />
+          <Route path="/MacBuyPage" element={<MacBuyPage />} />
+        </Routes>
+        <div className="Footer-div">
+          <Footer />
+        </div>
       </div>
     </Router>
   );
